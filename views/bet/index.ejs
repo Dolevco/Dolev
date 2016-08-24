@@ -1,0 +1,76 @@
+<link rel="stylesheet" href="/linker/styles/toto.css">
+<link rel="stylesheet" href="/linker/styles/toto2.css">
+
+<div class="col-sm-4 col-md-3 sidebar" style="margin-top:5%;width:17%">
+        <!-- normal collapsable navbar markup -->
+
+	<aside id="betslip-async" class="rollup-tearable ui-draggable" style="width: 226px; z-index: 9999; position: static; opacity: 1">
+		<div class="betslip_container entry-stage" style="direction:rtl">
+ 	 <ul class="selections" id="selections">
+    </ul>
+
+  <div class="totals" >
+    <div class="total-stake">
+      <div class="totals-description">
+        יחס
+      </div>
+      <div class="stake-container total">
+      	<input type="hidden" id="calc" value="1.00">
+        <div class="stake read-only total" id="winChance" value="1.00">1.00</div>
+      </div>
+    </div>
+     <div class="max-stake">
+     	  <div class="totals-description">
+        		סכום הימור
+      	</div>
+          <div class="stake-container read-only total">
+            <input class="stake total" onchange="betChange()" id="betAmount"></input>
+          </div>
+    </div>
+    <div class="winnings">
+      <div class="totals-description">
+        סכום זכיה
+      </div>
+      <div class="stake-container total">
+        <div class="stake read-only total" id="winPrice">0.00</div>
+      </div>
+    </div>
+    </div>
+    <form action="/betForm/create" method="POST" id="sign-up-form" class="form-signin">
+    	<input type="hidden" id="formGames" value="">
+    	<div class="betslip_nav">
+      		<button class="continue disabled" id="sendBet">שלח</button>
+    	</div>
+    </form>
+
+</div>
+</aside>
+</div>
+
+<div class="container" style="max-width:85%">
+	<h3>Upcomig games</h3>
+	<h3>My tofes</h3>
+	<div class="w3-col m3">
+	<!-- Betslip Async -->
+
+<table class='table' style="width:70%">
+		<tr>
+			<th>Home Team</th>
+			<th>Away Team</th>
+			<th>1</th>
+			<th>X</th>
+			<th>2</th>
+		</tr>
+
+		<% _.each(bets, function(bet) { %>
+		<tr data-id="<%= bet.gameId %>" data-model="user">
+			<td><%= bet.homeTeam %></td>
+			<td><%= bet.awayTeam %></td>
+			<td><a onclick="addBet(<%= bet.gameId %>, '<%= bet.homeTeam %>','<%= bet.awayTeam %>',<%= bet.homePrice %>,'<%= bet.homeTeam %>')" class="btn btn-sm btn-primary"><%= bet.homePrice %></a></td>
+			<td><a onclick="addBet(<%= bet.gameId %>, '<%= bet.homeTeam %>','<%= bet.awayTeam %>',<%= bet.drawPrice %>,'X')" class="btn btn-sm btn-primary"><%= bet.drawPrice %></a></td>
+			<td><a onclick="addBet(<%= bet.gameId %>, '<%= bet.homeTeam %>','<%= bet.awayTeam %>',<%= bet.awayPrice %>,'<%= bet.awayTeam %>')" class="btn btn-sm btn-primary"><%= bet.awayPrice %></a></td>
+		</tr>
+		<% }) %>
+	</table>
+</div>
+</div>
